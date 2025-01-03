@@ -17,9 +17,28 @@ const HALF_LIFE_PERIOD = 5730;
  * dateSample('WOOT!') => false
  *
  */
-function dateSample(/* sampleActivity */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function dateSample(sampleActivity) {
+
+  // Отношение активности
+  let logActivityRatio = Math.log(MODERN_ACTIVITY / sampleActivity);
+
+  // Коэффициент, связанный с периодом полураспада  (Math.LN2 => 0.693)
+  let halfLifeCoefficient = Math.LN2 / HALF_LIFE_PERIOD;
+
+  let age = Math.ceil(logActivityRatio / halfLifeCoefficient);
+
+  if (typeof sampleActivity !== 'string'
+    || isNaN(Number(sampleActivity))
+    || sampleActivity > MODERN_ACTIVITY
+    || sampleActivity <= 0
+    ) {
+    return false;
+  }
+  else {
+    return age;
+  }
+
+
 }
 
 module.exports = {
